@@ -13,7 +13,17 @@
 
             specs.general = with pkgs.vimPlugins; [
                 nvim-treesitter
-                nvim-treesitter.withAllGrammars
+                (nvim-treesitter.withPlugins (p: [
+                    p.nix
+                    p.rust
+                    p.toml
+                    p.lua
+                    p.kdl
+                    p.markdown
+                    p.c
+                    p.cpp
+                    p.json
+                ]))
 
                 telescope-nvim
                 plenary-nvim
