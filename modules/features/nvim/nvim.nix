@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-    flake.nixosModules.nvim = { pkgs, lib, ... }: {
+    flake.nixosModules.nvim = { pkgs, ... }: {
         environment.systemPackages = [
             self.packages.${pkgs.stdenv.hostPlatform.system}.nvim
         ];
@@ -7,11 +7,13 @@
         environment.variables.EDITOR = "nvim";
     };
 
-    perSystem = { pkgs, lib, self', ... }: {
+    perSystem = { pkgs, ... }: {
         packages.nvim = inputs.wrapper-modules.wrappers.neovim.wrap {
             inherit pkgs;
 
             specs.general = with pkgs.vimPlugins; [
+                tokyonight-nvim
+
                 nvim-treesitter
                 (nvim-treesitter.withPlugins (p: [
                     p.nix
@@ -42,7 +44,7 @@
                 ];
             };
 
-            extraPackages = with pkgs; [
+            runtimePkgs = with pkgs; [
                 ripgrep
                 fd
 

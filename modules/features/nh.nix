@@ -12,7 +12,7 @@
             inherit pkgs;
             package = pkgs.nh;
             env = {
-                "NH_FLAKE" = "$HOME/nixconf";
+                "NH_FLAKE" = "$HOME/Projetos/nixconf";
             };
         };
     };

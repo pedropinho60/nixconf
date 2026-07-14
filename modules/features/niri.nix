@@ -11,15 +11,39 @@
         ];
     };
 
-    perSystem = { pkgs, lib, self', ... }: {
+    perSystem = { pkgs, lib, self', inputs', ... }: {
         packages.niri = inputs.wrapper-modules.wrappers.niri.wrap {
             inherit pkgs;
+
             settings = {
                 spawn-at-startup = [
                     (lib.getExe self'.packages.noctalia)
                 ];
 
                 xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
+
+                outputs = {
+                    "LG Electronics LG ULTRAWIDE 0x000073D5" = {
+                        position = _: {
+                            props = {
+                                x = 1536;
+                                y = 0;
+                            };
+                        };
+                        mode = "2560x1080@74.991";
+                        focus-at-startup = _: {};
+                    };
+                    "BOE 0x0818 Unknown" = {
+                        position = _: {
+                            props = {
+                                x = 0;
+                                y = 108;
+                            };
+                        };
+                        scale = 1.25;
+                    };
+
+                };
 
                 input = {
                     keyboard = {
@@ -65,6 +89,11 @@
                     focus-ring.off = _: {};
                 };
 
+                blur = {
+                    passes = 3;
+                    offset = 5.0;
+                };
+
                 hotkey-overlay.skip-at-startup = _: {};
 
                 window-rules = [
@@ -85,10 +114,12 @@
 
                 prefer-no-csd = _: {};
 
+                debug.ignore-drm-device = "/dev/dri/renderD128";
+
                 binds = {
                     "Mod+T".spawn-sh = lib.getExe pkgs.kitty;
                     "Mod+Q".close-window = _: {};
-                    "Mod+B".spawn-sh = lib.getExe pkgs.firefox;
+                    "Mod+B".spawn-sh = lib.getExe inputs'.helium.packages.default;
 
                     "Mod+O".toggle-overview = _: {};
 

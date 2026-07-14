@@ -70,6 +70,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.hl.on_yank() end,
 })
 
+require('tokyonight').setup {
+    transparent = true,
+    styles = {
+        comments = { italic = false },
+    },
+}
+
+vim.cmd.colorscheme 'tokyonight-night'
+
 require('telescope').setup {
     extensions = {
         ['ui-select'] = { require('telescope.themes').get_dropdown()},
