@@ -13,8 +13,8 @@
       self.nixosModules.niri
       self.nixosModules.nvim
       self.nixosModules.nh
-      self.nixosModules.prismlauncher
       self.nixosModules.kitty
+      self.nixosModules.gaming
     ];
 
     nix.channel.enable = false;
@@ -124,9 +124,6 @@
       ];
     };
 
-    programs.steam.enable = true;
-    programs.gamemode.enable = true;
-
     programs.obs-studio = {
       enable = true;
       package = pkgs.obs-studio.override {cudaSupport = true;};
@@ -147,25 +144,19 @@
       git
       wl-clipboard
       inputs.helium.packages.${stdenv.hostPlatform.system}.default
-      mangohud
-      heroic
-      protonplus
       jetbrains.idea
       jdk
       nautilus
       discord
-      eden
       keepassxc
       btop
       qpdf
       inkscape
       foliate
       loupe
-      (osu-lazer-bin.override {nativeWayland = true;})
       piper
       mpv
       fastfetch
-      gamescope
     ];
 
     services.syncthing = {
@@ -190,14 +181,6 @@
     };
 
     services.ratbagd.enable = true;
-
-    services.udev.extraRules = ''
-      # Disable DS4 touchpad acting as mouse
-      # USB
-      ATTRS{name}=="Sony Interactive Entertainment Wireless Controller Touchpad", ENV{LIBINPUT_IGNORE_DEVICE}="1"
-      # Bluetooth
-      ATTRS{name}=="Wireless Controller Touchpad", ENV{LIBINPUT_IGNORE_DEVICE}="1"
-    '';
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
