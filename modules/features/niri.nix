@@ -141,7 +141,7 @@
         debug.ignore-drm-device = "/dev/dri/renderD128";
 
         binds = {
-          "Mod+T".spawn-sh = lib.getExe pkgs.kitty;
+          "Mod+T".spawn-sh = lib.getExe self'.packages.kitty;
           "Mod+Q".close-window = _: {};
           "Mod+B".spawn-sh = lib.getExe inputs'.helium.packages.default;
 

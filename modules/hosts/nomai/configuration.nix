@@ -14,6 +14,7 @@
       self.nixosModules.nvim
       self.nixosModules.nh
       self.nixosModules.prismlauncher
+      self.nixosModules.kitty
     ];
 
     nix.channel.enable = false;
@@ -144,7 +145,6 @@
     # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
       git
-      kitty
       wl-clipboard
       inputs.helium.packages.${stdenv.hostPlatform.system}.default
       mangohud
