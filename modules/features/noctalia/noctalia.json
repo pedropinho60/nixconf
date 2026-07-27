@@ -297,7 +297,7 @@
     "wallpaper": {
       "enabled": true,
       "overviewEnabled": false,
-      "directory": "/home/pedro/Pictures/Wallpapers",
+      "directory": "/home/pedro/Imagens/Wallpapers",
       "monitorDirectories": [],
       "enableMultiMonitorDirectories": false,
       "showHiddenFiles": false,
