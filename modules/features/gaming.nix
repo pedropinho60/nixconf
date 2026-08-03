@@ -39,6 +39,8 @@
       eden
 
       (osu-lazer-bin.override {nativeWayland = true;})
+
+      olympus
     ];
   };
 }
