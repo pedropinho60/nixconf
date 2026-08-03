@@ -18,7 +18,7 @@
         background_blur = 1;
       };
 
-      themeFile = "tokyo_night_night";
+      themeFile = "rose-pine";
     };
   };
 }

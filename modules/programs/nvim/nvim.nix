@@ -16,7 +16,7 @@
       inherit pkgs;
 
       specs.general = with pkgs.vimPlugins; [
-        tokyonight-nvim
+        rose-pine
 
         nvim-treesitter
         (nvim-treesitter.withPlugins (p: [

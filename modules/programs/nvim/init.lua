@@ -74,15 +74,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
----@diagnostic disable-next-line: missing-fields
-require("tokyonight").setup({
-  transparent = true,
+require("rose-pine").setup({
   styles = {
-    comments = { italic = false },
+    transparency = true,
   },
 })
 
-vim.cmd.colorscheme("tokyonight-night")
+vim.cmd.colorscheme("rose-pine")
 
 require("telescope").setup({
   extensions = {
