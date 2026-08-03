@@ -184,6 +184,34 @@
 
     services.ratbagd.enable = true;
 
+    programs.niri.package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri.wrap {
+      settings = {
+        outputs = {
+          "LG Electronics LG ULTRAWIDE 0x000073D5" = {
+            position = _: {
+              props = {
+                x = 1536;
+                y = 0;
+              };
+            };
+            mode = "2560x1080@74.991";
+            focus-at-startup = _: {};
+          };
+          "BOE 0x0818 Unknown" = {
+            position = _: {
+              props = {
+                x = 0;
+                y = 108;
+              };
+            };
+            scale = 1.25;
+          };
+        };
+
+        debug.ignore-drm-device = "/dev/dri/renderD128";
+      };
+    };
+
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     # programs.mtr.enable = true;

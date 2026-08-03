@@ -10,11 +10,12 @@
   }: {
     programs.niri = {
       enable = true;
-      package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+      package = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
     };
 
-    environment.systemPackages = [
-      pkgs.kdePackages.breeze
+    environment.systemPackages = with pkgs; [
+      kdePackages.breeze
+      wl-mirror
     ];
   };
 
@@ -38,28 +39,6 @@
         ];
 
         xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
-
-        outputs = {
-          "LG Electronics LG ULTRAWIDE 0x000073D5" = {
-            position = _: {
-              props = {
-                x = 1536;
-                y = 0;
-              };
-            };
-            mode = "2560x1080@74.991";
-            focus-at-startup = _: {};
-          };
-          "BOE 0x0818 Unknown" = {
-            position = _: {
-              props = {
-                x = 0;
-                y = 108;
-              };
-            };
-            scale = 1.25;
-          };
-        };
 
         input = {
           keyboard = {
@@ -138,7 +117,7 @@
 
         prefer-no-csd = _: {};
 
-        debug.ignore-drm-device = "/dev/dri/renderD128";
+        debug.honor-xdg-activation-with-invalid-serial = _: {};
 
         binds = {
           "Mod+T".spawn-sh = lib.getExe self'.packages.kitty;
@@ -268,7 +247,7 @@
             };
             content = {
               spawn-sh = let
-                wl-mirror = "${pkgs.wl-mirror}/bin/wl-mirror";
+                wl-mirror = lib.getExe pkgs.wl-mirror;
                 niri = lib.getExe pkgs.niri;
                 jq = lib.getExe pkgs.jq;
               in "${wl-mirror} $(${niri} msg --json focused-output | ${jq} -r .name)";
