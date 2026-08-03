@@ -33,6 +33,8 @@
 
     services.gvfs.enable = true;
 
+    services.upower.enable = true;
+
     boot.loader = {
       systemd-boot = {
         enable = true;
