@@ -33,12 +33,35 @@
         {include = [{optional = true;} "~/.config/niri/config.kdl"];}
       ];
 
-      settings = {
+      settings = let
+        niri = lib.getExe pkgs.niri;
+        xwayland-satellite = lib.getExe pkgs.xwayland-satellite;
+        noctalia = lib.getExe self'.packages.noctalia;
+
+        terminal = lib.getExe self'.packages.kitty;
+        browser = lib.getExe inputs'.helium.packages.default;
+        nautilus = lib.getExe pkgs.nautilus;
+
+        wl-mirror = lib.getExe pkgs.wl-mirror;
+        jq = lib.getExe pkgs.jq;
+        wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+        playerctl = lib.getExe pkgs.playerctl;
+        brightnessctl = lib.getExe pkgs.brightnessctl;
+
+        mkLockedSh = cmd: _: {
+          props = {
+            allow-when-locked = true;
+          };
+          content = {
+            spawn-sh = "${cmd}";
+          };
+        };
+      in {
         spawn-at-startup = [
-          (lib.getExe self'.packages.noctalia)
+          noctalia
         ];
 
-        xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
+        xwayland-satellite.path = xwayland-satellite;
 
         input = {
           keyboard = {
@@ -120,11 +143,19 @@
         debug.honor-xdg-activation-with-invalid-serial = _: {};
 
         binds = {
-          "Mod+T".spawn-sh = lib.getExe self'.packages.kitty;
+          "Mod+T".spawn = terminal;
           "Mod+Q".close-window = _: {};
-          "Mod+B".spawn-sh = lib.getExe inputs'.helium.packages.default;
+          "Mod+B".spawn = browser;
+          "Mod+E".spawn-sh = "${nautilus} --new-window";
 
-          "Mod+O".toggle-overview = _: {};
+          "Mod+O" = _: {
+            props = {
+              repeat = false;
+            };
+            content = {
+              toggle-overview = _: {};
+            };
+          };
 
           "Mod+H".focus-column-left = _: {};
           "Mod+J".focus-window-down = _: {};
@@ -215,6 +246,9 @@
           "Mod+Shift+Minus".set-window-height = "-10%";
           "Mod+Shift+Equal".set-window-height = "+10%";
 
+          "Mod+Ctrl+Minus".set-column-width = "-1";
+          "Mod+Ctrl+Equal".set-column-width = "+1";
+
           "Mod+V".toggle-window-floating = _: {};
           "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
 
@@ -233,8 +267,6 @@
             };
           };
 
-          "Mod+Shift+E".quit = _: {};
-
           "Mod+Shift+P".power-off-monitors = _: {};
 
           "Mod+G".set-dynamic-cast-window = _: {};
@@ -246,15 +278,34 @@
               repeat = false;
             };
             content = {
-              spawn-sh = let
-                wl-mirror = lib.getExe pkgs.wl-mirror;
-                niri = lib.getExe pkgs.niri;
-                jq = lib.getExe pkgs.jq;
-              in "${wl-mirror} $(${niri} msg --json focused-output | ${jq} -r .name)";
+              spawn-sh = "${wl-mirror} $(${niri} msg --json focused-output | ${jq} -r .name)";
             };
           };
 
-          "Mod+D".spawn-sh = "${lib.getExe self'.packages.noctalia} ipc call launcher toggle";
+          "Mod+D".spawn-sh = "${noctalia} ipc call launcher toggle";
+
+          "Mod+M".spawn-sh = "${noctalia} ipc call sessionMenu toggle";
+
+          "XF86AudioRaiseVolume" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
+          "XF86AudioLowerVolume" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+          "XF86AudioMute" = mkLockedSh "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "XF86AudioMicMute" = mkLockedSh "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+
+          "Mod+Up" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
+          "Mod+Down" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
+
+          "XF86AudioPlay" = mkLockedSh "${playerctl} play-pause";
+          "XF86AudioStop" = mkLockedSh "${playerctl} stop";
+          "XF86AudioPrev" = mkLockedSh "${playerctl} prev";
+          "XF86AudioNext" = mkLockedSh "${playerctl} next";
+
+          "Pause" = mkLockedSh "${playerctl} play-pause";
+
+          "XF86MonBrightnessUp" = mkLockedSh "${brightnessctl} --class=backlight set +10%";
+          "XF86MonBrightnessDown" = mkLockedSh "${brightnessctl} --class=backlight set 10%-";
+
+          "Mod+Right" = mkLockedSh "${brightnessctl} --class=backlight set +10%";
+          "Mod+Left" = mkLockedSh "${brightnessctl} --class=backlight set 10%-";
         };
       };
     };
