@@ -12,6 +12,11 @@
     programs = {
       steam.enable = true;
       gamemode.enable = true;
+
+      gamescope = {
+        enable = true;
+        capSysNice = true;
+      };
     };
 
     services = {
@@ -34,7 +39,6 @@
 
       mangohud
       protonplus
-      gamescope
 
       eden
 
