@@ -159,6 +159,9 @@
       piper
       mpv
       fastfetch
+      libreoffice
+      hunspell
+      hunspellDicts.pt_BR
     ];
 
     services.syncthing = {
