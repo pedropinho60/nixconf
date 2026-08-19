@@ -173,7 +173,11 @@
       hunspellDicts.pt_BR
       man-pages
       man-pages-posix
+      gnome-themes-extra
+      nwg-look
     ];
+
+    programs.dconf.enable = true;
 
     services.syncthing = {
       enable = true;
