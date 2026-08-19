@@ -171,6 +171,8 @@
       libreoffice
       hunspell
       hunspellDicts.pt_BR
+      man-pages
+      man-pages-posix
     ];
 
     services.syncthing = {
