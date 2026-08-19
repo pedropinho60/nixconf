@@ -123,13 +123,6 @@
       pulse.enable = true;
     };
 
-    services.sunshine = {
-      enable = true;
-      autoStart = true;
-      capSysAdmin = true;
-      openFirewall = true;
-    };
-
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.pedro = {
       isNormalUser = true;
