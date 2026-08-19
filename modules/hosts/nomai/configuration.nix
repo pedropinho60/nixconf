@@ -98,7 +98,21 @@
     };
 
     # Enable CUPS to print documents.
-    services.printing.enable = true;
+    services.printing = {
+      enable = true;
+      drivers = [pkgs.epson-escpr];
+    };
+
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+    hardware.sane = {
+      enable = true;
+      extraBackends = [pkgs.epsonscan2];
+    };
 
     # Enable sound.
     security.rtkit.enable = true;
@@ -123,6 +137,8 @@
         "wheel"
         "networkmanager"
         "uinput"
+        "scanner"
+        "lp"
       ];
     };
 
