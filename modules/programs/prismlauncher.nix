@@ -12,7 +12,7 @@
       hash = "sha256-3uCnVkYiA85Z0t43dYO6DCxDENCFNwfENKRwG7P+gjw=";
     };
 
-    appimageContents = pkgs.appimageTools.extractType2 {
+    appimageContents = pkgs.appimageTools.extract {
       inherit pname version src;
     };
   in {
