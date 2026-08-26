@@ -61,6 +61,7 @@
         alejandra
         lua-language-server
         stylua
+        rust-analyzer
       ];
 
       settings.config_directory = ./.;
