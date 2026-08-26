@@ -14,6 +14,8 @@
       inherit pkgs;
 
       settings = {
+        font_family = "DejaVuSansM Nerd Font";
+
         background_opacity = 0.8;
         background_blur = 1;
       };

@@ -178,6 +178,10 @@
       polkit_gnome
     ];
 
+    fonts.packages = with pkgs; [
+      nerd-fonts.dejavu-sans-mono
+    ];
+
     programs.dconf.enable = true;
 
     services.syncthing = {
