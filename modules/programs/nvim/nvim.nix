@@ -18,7 +18,6 @@
       specs.general = with pkgs.vimPlugins; [
         rose-pine
 
-        nvim-treesitter
         (nvim-treesitter.withPlugins (p: [
           p.nix
           p.rust
