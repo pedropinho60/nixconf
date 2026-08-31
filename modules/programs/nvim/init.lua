@@ -208,7 +208,6 @@ local servers = {
         },
         check = {
           command = "clippy",
-          workspace = false,
         },
       },
     },
