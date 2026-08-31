@@ -138,6 +138,8 @@
           }
         ];
 
+        screenshot-path = "~/Imagens/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
+
         prefer-no-csd = _: {};
 
         debug.honor-xdg-activation-with-invalid-serial = _: {};
