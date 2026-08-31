@@ -179,6 +179,7 @@
       gnome-themes-extra
       nwg-look
       polkit_gnome
+      parsec-bin
     ];
 
     fonts.packages = with pkgs; [
