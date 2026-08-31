@@ -188,6 +188,8 @@
 
     programs.dconf.enable = true;
 
+    services.cloudflare-warp.enable = true;
+
     services.syncthing = {
       enable = true;
       openDefaultPorts = true;
