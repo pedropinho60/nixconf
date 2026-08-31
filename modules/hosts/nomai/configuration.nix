@@ -147,7 +147,10 @@
 
     programs.localsend.enable = true;
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+    };
 
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
