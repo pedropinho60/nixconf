@@ -307,6 +307,10 @@
           "Mod+Right" = mkLockedSh "${brightnessctl} --class=backlight set +10%";
           "Mod+Left" = mkLockedSh "${brightnessctl} --class=backlight set 10%-";
         };
+
+        animations = {
+          workspace-switch.off = _: {};
+        };
       };
     };
   };
