@@ -18,6 +18,8 @@
 
         background_opacity = 0.8;
         background_blur = 1;
+
+        shell_integration = "enabled";
       };
 
       themeFile = "rose-pine";
