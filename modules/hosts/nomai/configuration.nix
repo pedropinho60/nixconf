@@ -180,6 +180,7 @@
       nwg-look
       polkit_gnome
       parsec-bin
+      noctalia
     ];
 
     fonts.packages = with pkgs; [
