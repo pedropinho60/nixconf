@@ -181,6 +181,7 @@
       polkit_gnome
       parsec-bin
       noctalia
+      nbfc-linux
     ];
 
     fonts.packages = with pkgs; [
@@ -213,6 +214,17 @@
     };
 
     services.ratbagd.enable = true;
+
+    systemd.services.nbfc_service = {
+      enable = true;
+      description = "NoteBook FanControl service";
+      serviceConfig.Type = "simple";
+      path = [pkgs.kmod];
+
+      script = "${pkgs.nbfc-linux}/bin/nbfc_service --config-file '/home/pedro/.config/nbfc.json'";
+
+      wantedBy = ["multi-user.target"];
+    };
 
     programs.niri.package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri.wrap {
       settings = {
