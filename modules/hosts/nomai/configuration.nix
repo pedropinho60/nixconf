@@ -14,6 +14,7 @@
       self.nixosModules.nvim
       self.nixosModules.nh
       self.nixosModules.kitty
+      self.nixosModules.git
       self.nixosModules.gaming
     ];
 
@@ -155,7 +156,6 @@
     # List packages installed in system profile.
     # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
-      git
       wl-clipboard
       inputs.helium.packages.${stdenv.hostPlatform.system}.default
       jetbrains.idea
