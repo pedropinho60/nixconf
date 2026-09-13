@@ -17,6 +17,11 @@
         ];
       };
 
+      gpu-screen-recorder = {
+        enable = true;
+        ui.enable = true;
+      };
+
       gamemode.enable = true;
 
       gamescope = {
