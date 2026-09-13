@@ -23,6 +23,7 @@
         with pkgs; [
           glfw3-minecraft
           waywall
+          jemalloc
         ];
 
       extraInstallCommands = ''
