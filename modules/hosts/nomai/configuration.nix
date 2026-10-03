@@ -35,6 +35,7 @@
     services.gvfs.enable = true;
 
     services.upower.enable = true;
+    services.power-profiles-daemon.enable = true;
 
     boot.loader = {
       systemd-boot = {
