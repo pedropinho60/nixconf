@@ -183,7 +183,10 @@
       parsec-bin
       noctalia
       nbfc-linux
+      maven
     ];
+
+    programs.nix-ld.enable = true;
 
     fonts.packages = with pkgs; [
       nerd-fonts.dejavu-sans-mono
