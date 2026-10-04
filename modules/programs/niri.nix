@@ -44,9 +44,6 @@
 
         wl-mirror = lib.getExe pkgs.wl-mirror;
         jq = lib.getExe pkgs.jq;
-        wpctl = lib.getExe' pkgs.wireplumber "wpctl";
-        playerctl = lib.getExe pkgs.playerctl;
-        brightnessctl = lib.getExe pkgs.brightnessctl;
 
         mkLockedSh = cmd: _: {
           props = {
@@ -284,30 +281,29 @@
             };
           };
 
-          "Mod+D".spawn-sh = "${noctalia} ipc call launcher toggle";
+          "Mod+D".spawn-sh = "${noctalia} msg panel-toggle launcher";
 
-          "Mod+M".spawn-sh = "${noctalia} ipc call sessionMenu toggle";
+          "Mod+M".spawn-sh = "${noctalia} msg panel-toggle session";
 
-          "XF86AudioRaiseVolume" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
-          "XF86AudioLowerVolume" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-          "XF86AudioMute" = mkLockedSh "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          "XF86AudioMicMute" = mkLockedSh "${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          "XF86AudioRaiseVolume" = mkLockedSh "${noctalia} msg volume-up";
+          "XF86AudioLowerVolume" = mkLockedSh "${noctalia} msg volume-down";
+          "XF86AudioMute" = mkLockedSh "${noctalia} msg volume-mute";
 
-          "Mod+Up" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
-          "Mod+Down" = mkLockedSh "${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
+          "Mod+Up" = mkLockedSh "${noctalia} msg volume-up";
+          "Mod+Down" = mkLockedSh "${noctalia} msg volume-down";
 
-          "XF86AudioPlay" = mkLockedSh "${playerctl} play-pause";
-          "XF86AudioStop" = mkLockedSh "${playerctl} stop";
-          "XF86AudioPrev" = mkLockedSh "${playerctl} prev";
-          "XF86AudioNext" = mkLockedSh "${playerctl} next";
+          "XF86AudioPlay" = mkLockedSh "${noctalia} msg media toggle";
+          "XF86AudioStop" = mkLockedSh "${noctalia} msg media stop";
+          "XF86AudioPrev" = mkLockedSh "${noctalia} msg media previous";
+          "XF86AudioNext" = mkLockedSh "${noctalia} msg media next";
 
-          "Pause" = mkLockedSh "${playerctl} play-pause";
+          "Pause" = mkLockedSh "${noctalia} msg media toggle";
 
-          "XF86MonBrightnessUp" = mkLockedSh "${brightnessctl} --class=backlight set +10%";
-          "XF86MonBrightnessDown" = mkLockedSh "${brightnessctl} --class=backlight set 10%-";
+          "XF86MonBrightnessUp" = mkLockedSh "${noctalia} msg brightness-up";
+          "XF86MonBrightnessDown" = mkLockedSh "${noctalia} msg brightness-down";
 
-          "Mod+Right" = mkLockedSh "${brightnessctl} --class=backlight set +10%";
-          "Mod+Left" = mkLockedSh "${brightnessctl} --class=backlight set 10%-";
+          "Mod+Right" = mkLockedSh "${noctalia} msg brightness-up";
+          "Mod+Left" = mkLockedSh "${noctalia} msg brightness-down";
         };
 
         animations = {
