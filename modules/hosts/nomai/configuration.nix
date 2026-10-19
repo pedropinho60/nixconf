@@ -185,6 +185,7 @@
       noctalia
       nbfc-linux
       maven
+      krita
       ddcutil
     ];
 
