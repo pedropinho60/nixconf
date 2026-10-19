@@ -80,7 +80,7 @@
           };
 
           focus-follows-mouse = _: {
-            props = {max-scroll-amount = "0%";};
+            props = {max-scroll-amount = "1%";};
           };
         };
 
