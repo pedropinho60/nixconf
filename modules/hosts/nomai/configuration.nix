@@ -134,6 +134,7 @@
         "uinput"
         "scanner"
         "lp"
+        "i2c"
       ];
     };
 
@@ -184,7 +185,10 @@
       noctalia
       nbfc-linux
       maven
+      ddcutil
     ];
+
+    hardware.i2c.enable = true;
 
     programs.nix-ld.enable = true;
 
