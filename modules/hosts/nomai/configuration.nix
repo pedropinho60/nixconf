@@ -292,6 +292,27 @@
       };
     };
 
+    services.displayManager.noctalia-greeter = {
+      enable = true;
+
+      settings = {
+        appearance.scheme = "Rosé Pine";
+        cursor.size = 24;
+        keyboard.layout = "br";
+
+        output = {
+          layout = "eDP-1:0,0; HDMI-A-1:1536,-108";
+          scales = "eDP-1:1.25; HDMI-A-1:1";
+          refresh_rate = "eDP-1:60; HDMI-A-1:75";
+        };
+      };
+
+      cursorTheme = {
+        package = pkgs.kdePackages.breeze;
+        name = "breeze_cursors";
+      };
+    };
+
     # List services that you want to enable:
 
     # Enable the OpenSSH daemon.
