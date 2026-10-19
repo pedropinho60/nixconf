@@ -95,10 +95,10 @@
 
           border = {
             width = 4;
-            active-color = "#7fc8ff";
-            inactive-color = "#505050";
+            active-color = "#9ccfd8";
+            inactive-color = "#6e6a86";
 
-            urgent-color = "#9b0000";
+            urgent-color = "#eb6f92";
           };
 
           focus-ring.off = _: {};
@@ -132,6 +132,18 @@
               }
             ];
             open-floating = true;
+          }
+          {
+            matches = [
+              {
+                is-window-cast-target = true;
+              }
+            ];
+
+            border = {
+              inactive-color = "#eb6f92";
+              active-color = "#ebbcba";
+            };
           }
         ];
 
