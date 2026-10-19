@@ -310,6 +310,7 @@
           "XF86AudioNext" = mkLockedSh "${noctalia} msg media next";
 
           "Pause" = mkLockedSh "${noctalia} msg media toggle";
+          "Next" = mkLockedSh "${noctalia} msg mic-mute";
 
           "XF86MonBrightnessUp" = mkLockedSh "${noctalia} msg brightness-up";
           "XF86MonBrightnessDown" = mkLockedSh "${noctalia} msg brightness-down";
