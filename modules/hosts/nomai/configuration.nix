@@ -187,6 +187,7 @@
       maven
       krita
       ddcutil
+      qbittorrent
     ];
 
     hardware.i2c.enable = true;
