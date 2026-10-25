@@ -58,6 +58,8 @@
       olympus
 
       clonehero
+
+      goverlay
     ];
   };
 }
