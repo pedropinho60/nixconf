@@ -52,6 +52,7 @@
       protonplus
 
       eden
+      cemu
 
       (osu-lazer-bin.override {nativeWayland = true;})
 
