@@ -5,6 +5,11 @@
 }: {
   perSystem = {pkgs, ...}: {
     packages.noctalia = pkgs.noctalia;
+
+    environment.systemPackages = [
+      pkgs.noctalia
+    ];
+
     # packages.noctalia = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
     #   inherit pkgs;
     #   settings =

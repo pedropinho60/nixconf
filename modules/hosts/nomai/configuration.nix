@@ -182,7 +182,6 @@
       nwg-look
       polkit_gnome
       parsec-bin
-      noctalia
       nbfc-linux
       maven
       krita
