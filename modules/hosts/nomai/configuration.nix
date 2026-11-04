@@ -200,6 +200,8 @@
 
     fonts.packages = with pkgs; [
       nerd-fonts.dejavu-sans-mono
+      corefonts
+      vista-fonts
     ];
 
     programs.dconf.enable = true;
