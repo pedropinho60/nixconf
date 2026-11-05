@@ -36,11 +36,15 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 10;
+        memtest86.enable = true;
       };
       efi.canTouchEfiVariables = true;
     };
 
     networking.hostName = "vessel";
+
+    networking.networkmanager.enable = true;
+    systemd.network.wait-online.enable = false;
 
     time.timeZone = "America/Fortaleza";
 
@@ -231,7 +235,9 @@
         keyboard.layout = "br";
 
         output = {
-          refresh_rate = "DP-1:75";
+          name = "DP-1";
+          scale = 1;
+          refresh_rate = 75;
         };
       };
 
