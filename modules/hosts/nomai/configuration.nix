@@ -18,10 +18,6 @@
     nix.channel.enable = false;
     nixpkgs.config.allowUnfree = true;
 
-    boot.kernel.sysctl = {"vm.swappiness" = 10;};
-
-    boot.kernelPackages = pkgs.linuxPackages_latest;
-
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
     boot.tmp.useTmpfs = true;
@@ -30,9 +26,6 @@
     services.btrfs.autoScrub.enable = true;
 
     services.gvfs.enable = true;
-
-    services.upower.enable = true;
-    services.power-profiles-daemon.enable = true;
 
     boot.loader = {
       systemd-boot = {
@@ -47,14 +40,53 @@
     networking.networkmanager.enable = true;
     systemd.network.wait-online.enable = false;
 
-    # Set your time zone.
     time.timeZone = "America/Fortaleza";
 
     i18n.defaultLocale = "pt_BR.UTF-8";
+
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "pt_BR.UTF-8";
+      LC_IDENTIFICATION = "pt_BR.UTF-8";
+      LC_MEASUREMENT = "pt_BR.UTF-8";
+      LC_MONETARY = "pt_BR.UTF-8";
+      LC_NAME = "pt_BR.UTF-8";
+      LC_NUMERIC = "pt_BR.UTF-8";
+      LC_PAPER = "pt_BR.UTF-8";
+      LC_TELEPHONE = "pt_BR.UTF-8";
+      LC_TIME = "pt_BR.UTF-8";
+    };
+
     console = {
       font = "Lat2-Terminus16";
       useXkbConfig = true;
     };
+
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    users.users."rejane" = {
+      isNormalUser = true;
+      description = "Rejane";
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "uinput"
+        "scanner"
+        "lp"
+        "i2c"
+      ];
+      packages = with pkgs; [
+        kdePackages.kate
+      ];
+    };
+
+    programs.firefox.enable = true;
 
     hardware = {
       graphics = {
@@ -117,28 +149,6 @@
       extraBackends = [pkgs.epsonscan2];
     };
 
-    # Enable sound.
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
-
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.pedro = {
-      isNormalUser = true;
-      extraGroups = [
-        "wheel"
-        "networkmanager"
-        "uinput"
-        "scanner"
-        "lp"
-        "i2c"
-      ];
-    };
-
     programs.localsend.enable = true;
 
     environment.sessionVariables = {
@@ -146,11 +156,7 @@
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
 
-    # List packages installed in system profile.
-    # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
-      wl-clipboard
-      firefox
       keepassxc
       libreoffice
       hunspell
@@ -158,11 +164,6 @@
       man-pages
       man-pages-posix
     ];
-
-    services.hardware.openrgb = {
-      enable = true;
-      package = pkgs.openrgb-with-all-plugins;
-    };
 
     hardware.i2c.enable = true;
 
@@ -172,59 +173,12 @@
       vista-fonts
     ];
 
-    programs.dconf.enable = true;
-
     services.cloudflare-warp.enable = true;
-
-    services.syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-
-      user = "pedro";
-      dataDir = "/home/pedro";
-      configDir = "/home/pedro/.config/syncthing";
-
-      settings = {
-        devices = {
-          "SM-A556E" = {id = "TY74HVD-2WJ3CY3-FBZON46-S4RKGUS-Y5TG2GX-WQR4OGT-ZHUHEPX-IPPLAAW";};
-        };
-        folders = {
-          "KeepassXC" = {
-            path = "/home/pedro/Documentos/KeepassXC";
-            devices = ["SM-A556E"];
-          };
-        };
-      };
-    };
 
     environment.etc."alsa-card-profile/mixer/paths/analog-input-headset-mic.conf".source = pkgs.runCommand "patched-headset-mic.conf" {} ''
       sed 's/^priority = .*/priority = 90/' \
       ${pkgs.pipewire}/share/alsa-card-profile/mixer/paths/analog-input-headset-mic.conf > $out
     '';
-
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-    # List services that you want to enable:
-
-    # Enable the OpenSSH daemon.
-    # services.openssh.enable = true;
-
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
-
-    # Copy the NixOS configuration file and link it from the resulting system
-    # (/run/current-system/configuration.nix). This is useful in case you
-    # accidentally delete configuration.nix.
-    # system.copySystemConfiguration = true;
 
     nix.gc = {
       automatic = true;
