@@ -10,12 +10,9 @@
     imports = [
       # Include the results of the hardware scan.
       self.nixosModules.nomaiHardware
-      self.nixosModules.niri
       self.nixosModules.nvim
       self.nixosModules.nh
-      self.nixosModules.kitty
       self.nixosModules.git
-      self.nixosModules.gaming
     ];
 
     nix.channel.enable = false;
@@ -82,10 +79,8 @@
 
       bluetooth = {
         enable = true;
-        powerOnBoot = false;
+        powerOnBoot = true;
       };
-
-      xpadneo.enable = true;
     };
 
     services.xserver.videoDrivers = [
@@ -109,6 +104,12 @@
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
+    };
+
+    services = {
+      desktopManager.plasma6.enable = true;
+
+      displayManager.plasma-login-manager.enable = true;
     };
 
     hardware.sane = {
@@ -138,16 +139,6 @@
       ];
     };
 
-    programs.obs-studio = {
-      enable = true;
-      package = pkgs.obs-studio.override {cudaSupport = true;};
-    };
-
-    programs.direnv = {
-      enable = true;
-      silent = true;
-    };
-
     programs.localsend.enable = true;
 
     environment.sessionVariables = {
@@ -159,34 +150,13 @@
     # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
       wl-clipboard
-      inputs.helium.packages.${stdenv.hostPlatform.system}.default
-      jetbrains.idea
-      jdk
-      nautilus
-      discord
+      firefox
       keepassxc
-      btop
-      qpdf
-      inkscape
-      foliate
-      loupe
-      piper
-      mpv
-      fastfetch
       libreoffice
       hunspell
       hunspellDicts.pt_BR
       man-pages
       man-pages-posix
-      gnome-themes-extra
-      nwg-look
-      polkit_gnome
-      parsec-bin
-      nbfc-linux
-      maven
-      krita
-      ddcutil
-      qbittorrent
     ];
 
     services.hardware.openrgb = {
@@ -195,8 +165,6 @@
     };
 
     hardware.i2c.enable = true;
-
-    programs.nix-ld.enable = true;
 
     fonts.packages = with pkgs; [
       nerd-fonts.dejavu-sans-mono
@@ -229,47 +197,6 @@
       };
     };
 
-    services.ratbagd.enable = true;
-
-    systemd.services.nbfc_service = {
-      enable = true;
-      description = "NoteBook FanControl service";
-      serviceConfig.Type = "simple";
-      path = [pkgs.kmod];
-
-      script = "${pkgs.nbfc-linux}/bin/nbfc_service --config-file '/home/pedro/.config/nbfc.json'";
-
-      wantedBy = ["multi-user.target"];
-    };
-
-    programs.niri.package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri.wrap {
-      settings = {
-        outputs = {
-          "LG Electronics LG ULTRAWIDE 0x000073D5" = {
-            position = _: {
-              props = {
-                x = 1536;
-                y = 0;
-              };
-            };
-            mode = "2560x1080@74.991";
-            focus-at-startup = _: {};
-          };
-          "BOE 0x0818 Unknown" = {
-            position = _: {
-              props = {
-                x = 0;
-                y = 108;
-              };
-            };
-            scale = 1.25;
-          };
-        };
-
-        debug.ignore-drm-device = "/dev/dri/renderD128";
-      };
-    };
-
     environment.etc."alsa-card-profile/mixer/paths/analog-input-headset-mic.conf".source = pkgs.runCommand "patched-headset-mic.conf" {} ''
       sed 's/^priority = .*/priority = 90/' \
       ${pkgs.pipewire}/share/alsa-card-profile/mixer/paths/analog-input-headset-mic.conf > $out
@@ -282,43 +209,6 @@
     #   enable = true;
     #   enableSSHSupport = true;
     # };
-
-    security.polkit.enable = true;
-
-    systemd.user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-
-    services.displayManager.noctalia-greeter = {
-      enable = true;
-
-      settings = {
-        appearance.scheme = "Rosé Pine";
-        cursor.size = 24;
-        keyboard.layout = "br";
-
-        output = {
-          layout = "eDP-1:0,0; HDMI-A-1:1536,-108";
-          scales = "eDP-1:1.25; HDMI-A-1:1";
-          refresh_rate = "eDP-1:60; HDMI-A-1:75";
-        };
-      };
-
-      cursorTheme = {
-        package = pkgs.kdePackages.breeze;
-        name = "breeze_cursors";
-      };
-    };
 
     # List services that you want to enable:
 
