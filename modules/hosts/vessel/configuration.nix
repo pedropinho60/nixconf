@@ -151,6 +151,9 @@
       qbittorrent
     ];
 
+    services.lact.enable = true;
+    hardware.amdgpu.overdrive.enable = true;
+
     services.hardware.openrgb = {
       enable = true;
       package = pkgs.openrgb-with-all-plugins;
