@@ -8,10 +8,8 @@
 }: {
   flake.nixosModules.nomaiConfiguration = {pkgs, ...}: {
     imports = [
-      # Include the results of the hardware scan.
       self.nixosModules.nomaiHardware
       self.nixosModules.nvim
-      self.nixosModules.nh
       self.nixosModules.git
     ];
 
@@ -81,8 +79,18 @@
         "lp"
         "i2c"
       ];
-      packages = with pkgs; [
-        kdePackages.kate
+    };
+
+    users.users."pedro" = {
+      isNormalUser = true;
+      description = "Pedro";
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "uinput"
+        "scanner"
+        "lp"
+        "i2c"
       ];
     };
 
@@ -184,6 +192,17 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 14d";
+    };
+
+    system.autoUpgrade = {
+      enable = true;
+
+      flake = "github:pedropinho60/nixconf";
+
+      dates = "daily";
+      randomizedDelaySec = "45min";
+
+      operation = "boot";
     };
 
     system.stateVersion = "26.05";
