@@ -173,6 +173,7 @@
       hunspellDicts.pt_BR
       man-pages
       man-pages-posix
+      moonlight-qt
     ];
 
     hardware.i2c.enable = true;
