@@ -38,6 +38,9 @@
     networking.networkmanager.enable = true;
     systemd.network.wait-online.enable = false;
 
+    services.upower.enable = true;
+    services.power-profiles-daemon.enable = true;
+
     time.timeZone = "America/Fortaleza";
 
     i18n.defaultLocale = "pt_BR.UTF-8";
