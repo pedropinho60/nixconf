@@ -97,7 +97,11 @@
       ];
     };
 
-    programs.firefox.enable = true;
+    programs.firefox = {
+      enable = true;
+
+      languagePacks = ["pt-BR"];
+    };
 
     hardware = {
       graphics = {
