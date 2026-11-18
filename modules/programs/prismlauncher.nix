@@ -24,6 +24,7 @@
           glfw3-minecraft
           waywall
           jemalloc
+          libgpg-error
         ];
 
       extraInstallCommands = ''
